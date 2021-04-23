@@ -75,7 +75,7 @@ class SignClassifier:
 
     def train(self, data_path='train_data/'):
         x_train, y_train = self.load_dataset(data_path)
-        self.model.fit(x_train, y_train, epochs=20, verbose=1)
+        self.model.fit(x_train, y_train, epochs=25, verbose=1)
 
         self.model.save_weights(self.cache_path)
 

@@ -16,7 +16,7 @@ class SignDetector:
     def __init__(self, pretrained=True):
         self.sign_classifier = SignClassifier(use_cached=pretrained)
         self.iou_th = 0.01
-        self.prob_th = 0.8
+        self.prob_th = 0.2
 
     def detect_signs(self, img):
         ss = SelectiveSearch()
@@ -33,8 +33,12 @@ class SignDetector:
 
         region_probs = self.sign_classifier.predict(region_slices)
 
+        self.prob_th = sorted(region_probs, reverse=True)[2]
+
         candidates = [(region, prob, i) for i, (region, prob) in enumerate(
-            zip(regions, region_probs)) if prob >= self.prob_th]
+            zip(regions, region_probs)) if prob >= self.prob_th and min(region[2],region[3]) > 15]
+
+        print(candidates)
 
         mark_img = np.array(img, copy=True)
         for rect, prob, _ in candidates:

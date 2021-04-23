@@ -14,7 +14,7 @@ from utils import plot_showcase
 
 
 
-img_path = 'test_cases/Am_Rojo0020.jpg'
+img_path = 'test_cases/Am_Rojo0024.jpg'
 orig_img = cv2.imread(img_path)
 
 
@@ -23,5 +23,5 @@ newWidth = int(orig_img.shape[1]*newHeight/orig_img.shape[0])
 orig_img = cv2.resize(orig_img, (newWidth, newHeight))
 orig_img = cv2.cvtColor(orig_img, cv2.COLOR_BGR2RGB)
 
-sd = SignDetector(pretrained=False)
+sd = SignDetector(pretrained=True)
 print(sd.detect_signs(orig_img))
