@@ -10,6 +10,9 @@ class SelectiveSearch:
 
         # create Selective Search Segmentation Object using default parameters
         ss = cv2.ximgproc.segmentation.createSelectiveSearchSegmentation()
+
+        strategy_color = cv2.ximgproc.segmentation.createSelectiveSearchSegmentationStrategyColor()
+        ss.addStrategy(strategy_color)
         # set input image on which we will run segmentation
         ss.setBaseImage(img)
 
