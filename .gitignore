@@ -130,4 +130,7 @@ dmypy.json
 
 
 /test_cases/
+/test_results/
+/test_results_canny/
+/test_results_t/
 /train_data/*
