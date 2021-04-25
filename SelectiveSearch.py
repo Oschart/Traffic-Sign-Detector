@@ -5,7 +5,8 @@ import cv2
 class SelectiveSearch:
 
     def propose_regions_countour(self, img):
-        canny_img = cv2.Canny(img, 50, 150, apertureSize=3)
+        canny_img = cv2.Canny(img, 100, 150, apertureSize=3)
+        canny_img = cv2.bilateralFilter(canny_img,9,75,75)
         contours, hierarchy = cv2.findContours(canny_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         
         try: hierarchy = hierarchy[0]
@@ -19,6 +20,7 @@ class SelectiveSearch:
         return regions, canny_img
 
     def propose_regions(self, img, fast_mode=True):
+        canny_img = cv2.Canny(img, 100, 150, apertureSize=3)
         # speed-up using multithreads
         cv2.setUseOptimized(True)
         cv2.setNumThreads(4)
@@ -42,5 +44,5 @@ class SelectiveSearch:
         rects = ss.process()
         print('Total Number of Region Proposals: {}'.format(len(rects)))
 
-        return rects
+        return rects, canny_img
         #cv2.rectangle(imOut, (x, y), (x+w, y+h), (0, 255, 0), 1, cv2.LINE_AA)
